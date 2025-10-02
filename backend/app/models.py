@@ -41,8 +41,20 @@ class Professor(Base):
 
 class SCP(Base):
     __tablename__ = "scp"
-    id = Column(Integer, primary_key=True, autoincrement = True)
+    scp_id = Column(Integer, primary_key=True, autoincrement = True)
     student_id = Column(Integer, ForeignKey("student.student_id"), nullable = False)
+    prof_id = Column(Integer, ForeignKey("professor.prof_id"), nullable = False)
+    course_id = Column(Integer, ForeignKey("course.course_id"), nullable = False)
+
+class SC(Base):
+    __tablename__ = "sc"
+    sc_id = Column(Integer, primary_key=True, autoincrement = True)
+    student_id = Column(Integer, ForeignKey("student.student_id"), nullable = False)
+    course_id = Column(Integer, ForeignKey("course.course_id"), nullable = False)
+
+class PC(Base):
+    __tablename__ = "pc"
+    pc_id = Column(Integer, primary_key=True, autoincrement = True)
     prof_id = Column(Integer, ForeignKey("professor.prof_id"), nullable = False)
     course_id = Column(Integer, ForeignKey("course.course_id"), nullable = False)
 
@@ -51,14 +63,12 @@ class Attendance(Base):
     attendance_id = Column(Integer, primary_key=True, autoincrement = True)
     attendance_date = Column(Date, default = date.today)
     status = Column(Boolean, default = True)
-    student_id = Column(Integer, ForeignKey("student.student_id"), nullable = False)
-    prof_id = Column(Integer, ForeignKey("professor.prof_id"), nullable = False)
-    course_id = Column(Integer, ForeignKey("course.course_id"), nullable = False)
+    scp_id = Column(Integer, ForeignKey("scp.scp_id"), nullable = False)
 
 class Timetable(Base):
     __tablename__ = "timetable"
     timetable_id = Column(Integer, primary_key = True, autoincrement = True)
     day = Column(String, nullable = False)
     time = Column(Time, nullable = False)
-    prof_id = Column(Integer, ForeignKey("professor.prof_id"), nullable = False)
-    course_id = Column(Integer, ForeignKey("course.course_id"), nullable = False)
+    pc_id = Column(Integer, ForeignKey("pc.pc_id"), nullable = False)
+    
